@@ -5,13 +5,11 @@ public class BinaryTree {
     
     private Node root;
     
-    
-    public BinaryTree(String info){
-        Node newRoot = new Node(info);
-        this.root = newRoot;
+
+    public BinaryTree(){
         
     }
-
+    
     public Node getRoot() {
         return root;
     }
@@ -48,10 +46,13 @@ public class BinaryTree {
         
     }
     
+    
+    
     public void loadGame(){
-        BinaryTree tree = new BinaryTree("vive na água");
-        insertNodeLeft(tree.getRoot(), "Macaco");
-        insertNodeRight(tree.getRoot(), "Peixe");
-        startGame(tree.root);
+        Node newRoot = new Node("vive na água");
+        this.root = newRoot;
+        insertNodeLeft(root, "Macaco");
+        insertNodeRight(root, "Peixe");
+        startGame(root);
     }
 }

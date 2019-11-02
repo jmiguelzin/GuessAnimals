@@ -1,11 +1,15 @@
 package guessanimals;
 
 class Node {
-    public String info;
-    public Node left;
-    public Node right;
+    
+    private String info;
+    private Node left;
+    private Node right;
 
-    public Node() {
+    public Node(String info) {
+        this.info = info;
+        this.left = null;
+        this.right = null;
     }
     
     public String getInfo() {
