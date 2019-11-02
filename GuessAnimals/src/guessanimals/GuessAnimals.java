@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package guessanimals;
 
-/**
- *
- * @author caio
+/*
+
+@Autor: João Miguel de Souza Barros
+@Objetivo: Criar um jogo para adivinhar qual animal o usuário está pensando.
+
  */
+
 public class GuessAnimals {
 
     /**
