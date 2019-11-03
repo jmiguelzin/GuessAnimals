@@ -85,7 +85,7 @@ public class BinaryTree {
                     node = node.getLeft();
                     break;
                 default:
-                    System.exit(1);
+                    System.exit(0);
             }
         }
         ans = JOptionPane.showOptionDialog(frame, "O animal pensado foi " + node.getInfo() + "\n\nAcertei?",
