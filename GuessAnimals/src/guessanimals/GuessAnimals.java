@@ -21,7 +21,6 @@ com o animal que o jogador pensou (passada pelo próprio jogador, assim como o a
 public class GuessAnimals {
 
     public static void main(String[] args) {
-        
         // Inicializa o jogo.
         BinaryTree game = new BinaryTree();
         game.loadGame();

@@ -2,6 +2,8 @@
 package guessanimals;
 
 import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class BinaryTree {
     
@@ -40,11 +42,27 @@ public class BinaryTree {
     
     public void startGame(Node node){
         
+        JFrame frame = new JFrame ("Jogo dos Animais");
         Scanner scanner = new Scanner(System.in);
-        String ans;
+        int ans;
+        String[] opcoes = {"Ok, entendi!"};
+        String[] opcoes2 = {"Sim"};
+        String[] opcoes3 = {"Não", "Sim"};
         Node father = null;
-        System.out.println("Eu prometo a você que posso adivinhar QUALQUER animal que você pensar!");
-        System.out.println("Pronto? Já pensou?");
+        
+        if (JOptionPane.showOptionDialog(frame, "Eu prometo a você que posso adivinhar QUALQUER animal que você pensar!",
+                "Jogo dos Animais", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, opcoes, 0) == JOptionPane.CLOSED_OPTION){
+            
+            System.exit(0);
+        };
+        
+        if (JOptionPane.showOptionDialog(frame, "Pronto? Já pensou?",
+                "Jogo dos Animais", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                null, opcoes2, 0) == JOptionPane.CLOSED_OPTION){
+            
+            System.exit(0);
+        };
         
         /* Inicia a busca na árvore: enquanto o nó possuir algum filho.
         o nó é uma característica (já que não é folha da árvore),
@@ -53,30 +71,41 @@ public class BinaryTree {
         
         while (node.getLeft() != null || node.getRight() != null){
             
-            System.out.println("Este animal " + node.getInfo() + " (s/n)?");
-            ans = scanner.next();
+            ans = JOptionPane.showOptionDialog(frame, "Este animal " + node.getInfo() + "?",
+                  "Jogo dos Animais", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                   null, opcoes3, 0);
             // Se possui a característica, busca na direita.
-            if (ans.equals("s")){
+            if (ans == 1){
                 father = node;
                 node = node.getRight();
             }
             // Se não possui a característica, busca na esquerda.
-            else if (ans.equals("n")){
+            else if (ans == 0){
                 father = node;
                 node = node.getLeft();
             }
+            else{
+                System.exit(1);
+            }
         }
+        ans = JOptionPane.showOptionDialog(frame, "O animal pensado foi " + node.getInfo() + "\n\nAcertei?",
+              "Jogo dos Animais", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+              null, opcoes3, 0);
         
-        System.out.println("O animal pensado foi: " + node.getInfo());
-        System.out.println("Acertei (s/n)?");
-        ans = scanner.next();
-        
-        if (ans.equals("s")){
-            System.out.println("Haha, eu sabia! Quer jogar novamente (s/n)?");
-            ans = scanner.next();
+        if (ans == 1){
+            ans = JOptionPane.showOptionDialog(frame, "Haha, eu sabia! Quer jogar novamente?",
+            "Jogo dos Animais", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+            null, opcoes3, 0);
             
-            if (ans.equals("s")){
+            if (ans == 1){
                 startGame(root);
+            }
+            
+            else if (ans == 0){
+                JOptionPane.showMessageDialog(frame, "Tchauzinho! <3");
+            }
+            else{
+                System.exit(0);
             }
         }
         
@@ -85,21 +114,20 @@ public class BinaryTree {
         do animal da folha. Assim, o nó atual vira esta característica e os filhos
         são os dois animais.
         */
-        else if (ans.equals("n")){ 
-            String animal;
-            String feature;
+        else if (ans == 0){ 
+            String animal = JOptionPane.showInputDialog(frame, "Aff... que chato :(\n\nEm qual animal você pensou?", "Jogo dos Animais", JOptionPane.QUESTION_MESSAGE);
             
-            System.out.println("Aff.. que chato :(");
-            
-            System.out.println("Em qual animal você pensou?");
-            scanner.nextLine();
-            animal = scanner.nextLine();
-            
-            System.out.println("Qual a característica que difere um(a) " + animal + " de um " + node.getInfo() + "?");
-            feature = scanner.nextLine();
+            if (animal == null){
+                System.exit(0);
+            }
+            String feature = JOptionPane.showInputDialog(frame, "O que um(a) " + animal + " faz que o difere de um(a)" + node.getInfo() + "?", "Jogo dos Animais", JOptionPane.QUESTION_MESSAGE);
+            if (feature == null){
+                System.exit(0);
+            }
             
             Node newAnimal = new Node(animal);
             Node newFeature = new Node(feature);
+            
             newFeature.setLeft(node);
             newFeature.setRight(newAnimal);
             
@@ -109,12 +137,18 @@ public class BinaryTree {
             else{
                 father.setRight(newFeature);
             }
+            ans = JOptionPane.showOptionDialog(frame, "Beleza! Agora sabemos tudo sobre um(a) " + newAnimal.getInfo() + "\n\nDeseja jogar novamente?",
+            "Jogo dos Animais", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+            null, opcoes3, 0);
             
-            System.out.println("Animal adicionado! Deseja jogar novamente (s/n)?");
-            ans = scanner.next();
-            
-            if (ans.equals("s")){
+            if (ans == 1){
                 startGame(root);
+            }
+            else if (ans == 0){
+                JOptionPane.showMessageDialog(frame, "Tchauzinho! <3");
+            }
+            else{
+                System.exit(0);
             }
         }  
     }
