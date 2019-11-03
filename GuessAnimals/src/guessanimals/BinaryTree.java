@@ -9,15 +9,15 @@ public class BinaryTree {
     
     private Node root;
     
-    public Node getRoot() {
+    private Node getRoot() {
         return root;
     }
 
-    public void setRoot(Node root) {
+    private void setRoot(Node root) {
         this.root = root;
     }
     
-    public Node insertNodeLeft(Node node, String info){
+    private Node insertNodeLeft(Node node, String info){
         // esta função adiciona um filho a esquerda de um nó.
         if (node.getLeft() == null){
             Node newNode = new Node(info);
@@ -28,7 +28,7 @@ public class BinaryTree {
         return null;    
     }   
     
-    public Node insertNodeRight(Node node, String info){
+    private Node insertNodeRight(Node node, String info){
         
         // esta função adiciona um filho a direita de um nó.
         if (node.getRight() == null){
@@ -40,7 +40,7 @@ public class BinaryTree {
         return null;
     }    
     
-    public void startGame(Node node){
+    private void startGame(Node node){
         
         JFrame frame = new JFrame ("Jogo dos Animais");
         Scanner scanner = new Scanner(System.in);
@@ -55,14 +55,14 @@ public class BinaryTree {
                 null, opcoes, 0) == JOptionPane.CLOSED_OPTION){
             
             System.exit(0);
-        };
+        }
         
         if (JOptionPane.showOptionDialog(frame, "Pronto? Já pensou?",
                 "Jogo dos Animais", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
                 null, opcoes2, 0) == JOptionPane.CLOSED_OPTION){
             
             System.exit(0);
-        };
+        }
         
         /* Inicia a busca na árvore: enquanto o nó possuir algum filho.
         o nó é uma característica (já que não é folha da árvore),
@@ -75,17 +75,17 @@ public class BinaryTree {
                   "Jogo dos Animais", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
                    null, opcoes3, 0);
             // Se possui a característica, busca na direita.
-            if (ans == 1){
-                father = node;
-                node = node.getRight();
-            }
-            // Se não possui a característica, busca na esquerda.
-            else if (ans == 0){
-                father = node;
-                node = node.getLeft();
-            }
-            else{
-                System.exit(1);
+            switch (ans) {
+                case 1:
+                    father = node;
+                    node = node.getRight();
+                    break;
+                case 0:
+                    father = node;
+                    node = node.getLeft();
+                    break;
+                default:
+                    System.exit(1);
             }
         }
         ans = JOptionPane.showOptionDialog(frame, "O animal pensado foi " + node.getInfo() + "\n\nAcertei?",
@@ -97,15 +97,15 @@ public class BinaryTree {
             "Jogo dos Animais", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
             null, opcoes3, 0);
             
-            if (ans == 1){
-                startGame(root);
-            }
-            
-            else if (ans == 0){
-                JOptionPane.showMessageDialog(frame, "Tchauzinho! <3");
-            }
-            else{
-                System.exit(0);
+            switch (ans) {
+                case 1:
+                    startGame(root);
+                    break;
+                case 0:
+                    JOptionPane.showMessageDialog(frame, "Tchauzinho! <3");
+                    break;
+                default:
+                    System.exit(0);
             }
         }
         
@@ -120,7 +120,7 @@ public class BinaryTree {
             if (animal == null){
                 System.exit(0);
             }
-            String feature = JOptionPane.showInputDialog(frame, "O que um(a) " + animal + " faz que o difere de um(a)" + node.getInfo() + "?", "Jogo dos Animais", JOptionPane.QUESTION_MESSAGE);
+            String feature = JOptionPane.showInputDialog(frame, "O que um(a) " + animal + " faz que o difere de um(a) " + node.getInfo() + "?", "Jogo dos Animais", JOptionPane.QUESTION_MESSAGE);
             if (feature == null){
                 System.exit(0);
             }
@@ -141,14 +141,15 @@ public class BinaryTree {
             "Jogo dos Animais", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
             null, opcoes3, 0);
             
-            if (ans == 1){
-                startGame(root);
-            }
-            else if (ans == 0){
-                JOptionPane.showMessageDialog(frame, "Tchauzinho! <3");
-            }
-            else{
-                System.exit(0);
+            switch (ans) {
+                case 1:
+                    startGame(root);
+                    break;
+                case 0:
+                    JOptionPane.showMessageDialog(frame, "Tchauzinho! <3");
+                    break;
+                default:
+                    System.exit(0);
             }
         }  
     }
